@@ -108,6 +108,7 @@
     <script>
         const audioPlayer = document.getElementById('audioPlayer');
         const fileInput = document.getElementById('fileInput');
+        const playlistContainer = document.getElementById('playlistContainer');
 
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
@@ -146,10 +147,35 @@
             const query = document.getElementById('youtubeSearch').value;
             if (!query) return alert('Please enter a YouTube URL or keywords');
 
-            const response = await fetch(`https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`);
-            const data = await response.text();
-            // Simplified result parsing, replace with a proper YouTube API call for production
-            document.getElementById('youtubeResults').innerHTML = '<p>Search functionality is under development.</p>';
+            // Simulating YouTube search (actual YouTube API is recommended for real functionality)
+            const resultsContainer = document.getElementById('youtubeResults');
+            resultsContainer.innerHTML = '';
+
+            const mockResults = [
+                { title: "Song 1", url: "song1.mp3" },
+                { title: "Song 2", url: "song2.mp3" },
+                { title: "Song 3", url: "song3.mp3" }
+            ];
+
+            mockResults.forEach((result, index) => {
+                const resultDiv = document.createElement('div');
+                resultDiv.textContent = result.title;
+                const addButton = document.createElement('button');
+                addButton.textContent = 'Add to Playlist';
+                addButton.onclick = () => addToPlaylist(result);
+                resultDiv.appendChild(addButton);
+                resultsContainer.appendChild(resultDiv);
+            });
+        }
+
+        function addToPlaylist(song) {
+            const li = document.createElement('li');
+            li.textContent = song.title;
+            li.onclick = () => {
+                audioPlayer.src = song.url;
+                audioPlayer.play();
+            };
+            playlistContainer.appendChild(li);
         }
     </script>
 </body>
