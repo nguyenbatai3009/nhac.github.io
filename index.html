@@ -8,7 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f0f0f0;
+            background: url('1.png') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
         }
@@ -39,7 +40,7 @@
         .player-container {
             margin-top: 20px;
             padding: 20px;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.8);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: inline-block;
             border-radius: 8px;
@@ -171,8 +172,9 @@
         function addToPlaylist(song) {
             const li = document.createElement('li');
             li.textContent = song.title;
+            li.dataset.url = song.url; // Store the song URL in a data attribute
             li.onclick = () => {
-                audioPlayer.src = song.url;
+                audioPlayer.src = li.dataset.url; // Use the stored URL to set the audio source
                 audioPlayer.play();
             };
             playlistContainer.appendChild(li);
